@@ -1,4 +1,4 @@
-# simmer-simulation
+# discrete-event-simulation
 
 ## Zadanie 1
 Wykonać symulację bramek autostradowych uwzględniając następujące założenia:
