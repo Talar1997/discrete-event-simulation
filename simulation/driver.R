@@ -10,7 +10,7 @@ driver <- function(alias, gates, proceed_time, standard_deviation) {
       log_(paste(alias, "driver has arrived")) %>%
       select(gates, policy = "shortest-queue") %>%
       seize_selected() %>%
-      timeout(function()rnorm(1, proceed_time, standard_deviation)) %>%
+      timeout(function()abs(rnorm(1, proceed_time, standard_deviation))) %>%
       release_selected() %>%
       log_(paste(alias, "driver drove away"))
   )

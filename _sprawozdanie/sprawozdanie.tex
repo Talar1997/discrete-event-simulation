@@ -104,37 +104,49 @@ Wyznaczyć symulacyjnie zależność pomiędzy średnią liczbą pojazdów na mi
 W sprawozdaniu należy zamieścić treść zadania, kod źródłowy rozwiązania z opisem, wyniki symulacji i wykres.
 
 
-% \ref{fig:wykres1}.
-
-% \begin{figure}[H]
-% \centering
-% \includegraphics[width=1\columnwidth]{img/zad1.PNG}
-% \caption{Przykład wykresu}
-% \label{fig:wykres1}
-% \end{figure}
-
 \subsection{Rozwiązanie}
+Zachowanie kierowców zostało zdefiniowane w osobnej, parametryzowanej funkcji. Każdemu kierowcy przypisać można alias słuzący do wyświetlania logów, dostępne bramki (parametr \verb|gates|) oraz czas przejazdu przez bramki wraz z odchyleniem standardowym. Na podstawie funkcji driver  (Listing \ref{listing-driver}) utworzono obiekty dla kierowców płacących gotówką i kartą oraz samą gotówką. W założeniach przyjęto, że dostępne bramki autostradowe oznaczane są jako \verb|gate1, gate2, gate3, gate4|. Kierowcy płacący tylko i wyłącznie gotówką mają do dyspozycji bramki \verb|gate2, gate3 oraz gate4|, ponieważ \verb|gate1| obsługuje tylko karty. Przy założeniu, że płatność kartą odbywa się szybciej, przyjęto parametr \verb|M1=3, SD1=2| dla płatności gotówką, oraz \verb|M2=2, SD1=1| dla płatności kartą.
 
+Symulacja jest również sparametryzowaną funkcją (Listing \ref{listing-symulacja}), w której można ustawić parametr L (cars\_per\_minute), obiekty kierowców (cash/card\_drivers\_trajectory) oraz łączną liczbę kierowców. Symulacja wykonywana jest pętli, dla parametru L z przedziału od 1 do 10, przy założeniu 50 kierowców płacących kartą jak i 50 kierowców płacących gotówką. Dla każdego parametru L wyniki zostały powtórzone 10 razy a następnie uśrednione. Jak widać na listingu \ref{listing-symulacja}, definiowane są dostępne bramki oraz ilość kierowców wraz z ich typem (cash/card\_drivers\_trajectory). Wyniki, czyli średni czas oczekiwania do przejazdu oraz średni czas płacenia przy bramkach zostały wyeksportowane do arkusza kalkulacyjnego.
 
-% \begin{table}[h!]
-% \centering
-% \begin{tabular}{ |c|c|c| } 
-% \hline
-% Próbka & Średnie przybliżenie $\pi$ & Błąd aproksymacji \\
-% \hline
-% 1	& 3,6 &	0,45840735 \\
-% 10	& 3,04 &	0,10159265 \\
-% \hline
-%\end{tabular}
-%\caption{Tablica z wynikami uzyskanymi w symulacji}
-%\label{tab:res}
-% \end{table}
+Na podstawie danych utworzony wykres (Rysunek \ref{fig:wykres}), który przedstawia czas oczekiwania na przejazd względem parametru L, przy łącznej ilości 100 kierowców. Uśrednione dane z 10 prób przedstawione są w tabeli \ref{tab:res}.
 
+\begin{figure}[H]
+ \centering
+ \includegraphics[width=1\columnwidth]{img/wykres3.PNG}
+ \caption{Wykres przedstawiający czas oczekiwania na przejazd przez bramki względem parametru L przy 100 kierowcach}
+ \label{fig:wykres}
+\end{figure}
+
+ \begin{table}[h!]
+ \centering
+ \begin{tabular}{ |c|c|c| } 
+ \hline
+ Parametr L & Średni czas przejazdu przez bramki \\
+ \hline
+1 &	6.229830525 \\
+2 &	17.96801664 \\
+3 &	22.78144309 \\
+4 &	25.58758123 \\
+5 &	24.29923589 \\
+6 &	26.43225118 \\
+7 &	28.43579926 \\
+8 &	27.39886657 \\
+9 &	28.97951878 \\
+10 &	28.52141024 \\
+
+ \hline
+\end{tabular}
+\caption{Tablica z wynikami uzyskanymi w symulacji}
+\label{tab:res}
+ \end{table}
+
+Na podstawie powyższych danych i wykresu widać, że czas oczekiwania na przejazd przez bramki rośnie wraz z parametrem L.
 
 \subsection{Kod źródłowy}
 
-\lstinputlisting[language=R, caption=Funkcja związana z zachowaniem kierowcy, label={listing-label}]{../simulation/driver.R}
-\lstinputlisting[language=R, caption=Imlementacja symulacji, label={listing-label}]{../simulation/simulate_gates.R}
-\lstinputlisting[language=R, caption=Wywołanie symulacji kilkukrotnie dla różnych wartości i zapis danych do pliku, label={listing-label}]{../simulation/main.R}
+\lstinputlisting[language=R, caption=Funkcja związana z zachowaniem kierowcy, label={listing-driver}]{../simulation/driver.R}
+\lstinputlisting[language=R, caption=Imlementacja symulacji, label={listing-symulacja}]{../simulation/simulate_gates.R}
+\lstinputlisting[language=R, caption=Wywołanie symulacji kilkukrotnie dla różnych wartości i zapis danych do pliku, label={listing-main}]{../simulation/main.R}
 
 \end{document}
